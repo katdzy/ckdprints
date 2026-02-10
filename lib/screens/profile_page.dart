@@ -54,20 +54,23 @@ class ProfilePage extends StatelessWidget {
                       child: Row(
                         children: [
                           // Profile Image
-                          Container(
-                            width: 80,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              shape: BoxShape.circle,
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300],
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  'assets/images/juan.png',
+                                  fit: BoxFit.cover, // ensures the image covers the circle
+                                  width: 80,
+                                  height: 80,
+                                ),
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.person,
-                              size: 40,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
+                            const SizedBox(width: 16),
 
                           // Profile Info
                           Expanded(

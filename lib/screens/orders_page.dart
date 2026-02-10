@@ -31,8 +31,8 @@ class _OrdersPageState extends State<OrdersPage> {
       'statusColor': deliveredGreen,
       'progress': 3,
       'products': [
-        {'name': 'Knitted Teddy Bear', 'quantity': 1, 'price': 99.99, 'icon': Icons.card_giftcard},
-        {'name': 'Flexi Octopus', 'quantity': 1, 'price': 89.99, 'icon': Icons.pets},
+        {'name': 'Knitted Teddy Bear', 'quantity': 1, 'price': 99.99, 'icon': 'assets/images/bear.png'},
+        {'name': 'Flexi Octopus', 'quantity': 1, 'price': 89.99, 'icon': 'assets/images/octopus.png'},
       ],
       'total': 188.98,
     },
@@ -43,11 +43,12 @@ class _OrdersPageState extends State<OrdersPage> {
       'statusColor': shippedPurple,
       'progress': 2,
       'products': [
-        {'name': 'Glasses Stand', 'quantity': 1, 'price': 129.99, 'icon': Icons.visibility},
+        {'name': 'Glasses Stand', 'quantity': 1, 'price': 129.99, 'icon': 'assets/images/glasses.png'},
       ],
       'total': 129.99,
     },
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -222,6 +223,7 @@ class _OrdersPageState extends State<OrdersPage> {
               padding: const EdgeInsets.only(bottom: 12),
               child: Row(
                 children: [
+                  // Product Icon as PNG
                   Container(
                     width: 60,
                     height: 60,
@@ -229,10 +231,12 @@ class _OrdersPageState extends State<OrdersPage> {
                       color: bgGray,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(
-                      product['icon'],
-                      color: subtitleColor,
-                      size: 30,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        product['icon'],
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -375,36 +379,36 @@ class _OrdersPageState extends State<OrdersPage> {
   }
 
   Widget _buildProgressTracker(int progress) {
-    return Row(
-      children: List.generate(3, (index) {
-        final isComplete = index < progress;
-        return Expanded(
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: isComplete ? accentPurple : Colors.grey[300],
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  isComplete ? Icons.check : Icons.circle,
-                  color: Colors.white,
-                  size: 20,
+  return Row(
+    children: List.generate(3, (index) {
+      final isComplete = index < progress;
+      return Expanded(
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: isComplete ? accentPurple : Colors.grey[300],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                isComplete ? Icons.check : Icons.circle,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+            if (index < 2)
+              Expanded(
+                child: Container(
+                  height: 2,
+                  color: index < progress - 1 ? accentPurple : Colors.grey[300],
                 ),
               ),
-              if (index < 2)
-                Expanded(
-                  child: Container(
-                    height: 2,
-                    color: index < progress - 1 ? accentPurple : Colors.grey[300],
-                  ),
-                ),
-            ],
-          ),
-        );
-      }),
-    );
-  }
+          ],
+        ),
+      );
+    }),
+  );
+}
 }

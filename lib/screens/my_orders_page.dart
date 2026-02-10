@@ -22,7 +22,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   String selectedFilter = 'All Orders';
   final List<String> filters = ['All Orders', 'Pending', 'Processing', 'Shipped'];
 
-  // Sample orders data
+  // Sample orders data with image paths
   final List<Map<String, dynamic>> orders = [
     {
       'orderId': 'ORD-2024-001',
@@ -31,8 +31,18 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
       'statusColor': deliveredGreen,
       'progress': 3,
       'products': [
-        {'name': 'Knitted Teddy Bear', 'quantity': 1, 'price': 99.99, 'icon': Icons.card_giftcard},
-        {'name': 'Flexi Octopus', 'quantity': 1, 'price': 89.99, 'icon': Icons.pets},
+        {
+          'name': 'Knitted Teddy Bear',
+          'quantity': 1,
+          'price': 99.99,
+          'imagePath': 'assets/images/bear.png'
+        },
+        {
+          'name': 'Flexi Octopus',
+          'quantity': 1,
+          'price': 89.99,
+          'imagePath': 'assets/images/octopus.png'
+        },
       ],
       'total': 188.98,
     },
@@ -43,7 +53,12 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
       'statusColor': shippedPurple,
       'progress': 2,
       'products': [
-        {'name': 'Glasses Stand', 'quantity': 1, 'price': 129.99, 'icon': Icons.visibility},
+        {
+          'name': 'Glasses Stand',
+          'quantity': 1,
+          'price': 129.99,
+          'imagePath': 'assets/images/glasses.png'
+        },
       ],
       'total': 129.99,
     },
@@ -229,10 +244,12 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                       color: bgGray,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(
-                      product['icon'],
-                      color: subtitleColor,
-                      size: 30,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        product['imagePath'],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),

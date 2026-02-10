@@ -27,7 +27,7 @@ class _CartPageState extends State<CartPage> {
       'color': 'Black',
       'price': 99.99,
       'quantity': 1,
-      'icon': Icons.card_giftcard,
+      'imagePath': 'assets/images/bear.png',
     },
     {
       'name': 'Flexi Octopus',
@@ -35,7 +35,7 @@ class _CartPageState extends State<CartPage> {
       'color': 'White',
       'price': 89.99,
       'quantity': 2,
-      'icon': Icons.pets,
+      'imagePath': 'assets/images/octopus.png',
     },
     {
       'name': 'Glasses Stand',
@@ -43,7 +43,7 @@ class _CartPageState extends State<CartPage> {
       'color': 'Space Gray',
       'price': 129.99,
       'quantity': 1,
-      'icon': Icons.visibility,
+      'imagePath': 'assets/images/glasses.png',
     },
   ];
 
@@ -121,7 +121,7 @@ class _CartPageState extends State<CartPage> {
                           item['color'],
                           item['price'],
                           item['quantity'],
-                          item['icon'],
+                          item['imagePath'],
                           index,
                         ),
                       );
@@ -241,7 +241,7 @@ class _CartPageState extends State<CartPage> {
     String color,
     double price,
     int quantity,
-    IconData icon,
+    String imagePath,
     int index,
   ) {
     return Container(
@@ -268,15 +268,17 @@ class _CartPageState extends State<CartPage> {
               borderRadius: BorderRadius.circular(14),
             ),
             child: Center(
-              child: Icon(
-                icon,
-                size: 48,
-                color: subtitleColor,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Image.asset(
+                  imagePath,
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-          const SizedBox(width: 16),
-
           // Product Details
           Expanded(
             child: Column(
@@ -285,7 +287,7 @@ class _CartPageState extends State<CartPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    Flexible(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -164,6 +164,7 @@ class HomePage extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.all(24),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -195,7 +196,7 @@ class HomePage extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           Container(
-                            height: 36,
+                            height: 30,
                             width: 114,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -265,7 +266,7 @@ class HomePage extends StatelessWidget {
                           4.5,
                           234,
                           'Functional',
-                          Icons.delete_outline,
+                          'assets/images/trash.png',
                         ),
                         _buildProductCard(
                           'Flexi Octopus',
@@ -273,7 +274,7 @@ class HomePage extends StatelessWidget {
                           4.8,
                           567,
                           'Toys',
-                          Icons.pets,
+                          'assets/images/octopus.png',
                         ),
                         _buildProductCard(
                           'Knitted Teddy Bear',
@@ -281,7 +282,7 @@ class HomePage extends StatelessWidget {
                           4.6,
                           189,
                           'Gifts',
-                          Icons.card_giftcard,
+                          'assets/images/bear.png',
                         ),
                         _buildProductCard(
                           'Glasses Stand',
@@ -289,7 +290,7 @@ class HomePage extends StatelessWidget {
                           4.3,
                           345,
                           'Accessories',
-                          Icons.visibility,
+                          'assets/images/glasses.png',
                         ),
                       ],
                     ),
@@ -338,7 +339,7 @@ class HomePage extends StatelessWidget {
     double rating,
     int reviews,
     String category,
-    IconData icon,
+    String imagePath,
   ) {
     return Container(
       decoration: BoxDecoration(
@@ -366,14 +367,26 @@ class HomePage extends StatelessWidget {
                     top: Radius.circular(16),
                   ),
                 ),
-                child: Center(
-                  child: Icon(
-                    icon,
-                    size: 64,
-                    color: lightGray,
-                  ),
-                ),
-              ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Make image take up ~60% of the card width
+                    final imageSize = constraints.maxWidth * 0.6;
+
+                    return Center(
+                      child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
+                      child: Image.asset(
+                        imagePath,
+                        width: double.infinity,    // fill width
+                        height: double.infinity,   // fill height
+                        fit: BoxFit.cover,         // fills the gray area
+                      ),
+                    ),
+                    );
+                  },
+                )),
               // Category Badge
               Positioned(
                 left: 8,
@@ -425,9 +438,10 @@ class HomePage extends StatelessWidget {
             ],
           ),
           // Product Details
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -479,7 +493,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            ),)
           ),
         ],
       ),
